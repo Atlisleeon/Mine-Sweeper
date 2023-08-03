@@ -152,3 +152,62 @@ function setMinesNegsCount(board) {
 //     beginner: {
 //         SIZE: [4, 4],
 //         MINES: 2,
+
+
+
+// function setMinesNegsCount(numMines) {
+//     function getRandomInt(min, max) {
+//         return Math.floor(math.random() * (max - min) + min)
+//     }
+
+//     var mineCount = 0
+//     while (mineCount < numMines) {
+//         var row = getRandomInt(0, board.length)
+//         var col = getRandomInt(0, board[row].length)
+
+//         if (board[row][col] !== 'MINE') {
+//             board[row][col] = 'MINE'
+//             mineCount++
+//         }
+//     }
+
+//     for (var i = 0; i < board.length; i++) {
+//         for (var j = 0; j < board[i].length; j++) {
+//             if (board[i][j] !== 'MINE') {
+//                 var mineCount = 0
+//                 for (var dx = -1; dx <= 1; dx++) {
+//                     for (var dy = -1; dy <= 1; dy++) {
+//                         var newRow = i + dx
+//                         var newCel = j + dy
+//                         if (
+//                             newRow >= 0 &&
+//                             newRow < board.length &&
+//                             newCol >= 0 &&
+//                             newCol < board[i].length &&
+//                             board[newRow][newCol] === 'MINE'
+//                         ) {
+//                             mineCount++
+//                         }
+//                     }
+//                 }
+//                 board[i][j] = mineCount
+//             }
+//         }
+//     }
+// }
+
+// var numRows = 4;
+// var numCols = 4;
+// var numMines = 2;
+// var board = buildBoard(numRows, numCols);
+// setMinesNegsCount(numMines);
+// console.log(board);
+
+
+
+// function getRandomInt(min, max) {
+//     min = Math.ceil(min);
+//     max = Math.floor(max);
+//     return Math.floor(Math.random() * (max - min) + min);
+//     // currCell += MINE
+// }
