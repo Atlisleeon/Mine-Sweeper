@@ -1,4 +1,4 @@
-/* //////////////BODY AND ALL AROUND/////////////// */
+/* //////////////     BODY AND ALL AROUND      /////////////// */
 
 body {
     background-color: rgb(194, 176, 155);
@@ -9,7 +9,7 @@ h1 {
 }
 
 
-/* /////////////////    BOARD   //////////////////// */
+/* ///////////////////////    BOARD   ////////////////////// */
 table {
     border-collapse: collapse;
     vertical-align: middle;
@@ -28,8 +28,8 @@ td {
 }
 
 .board td {
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     text-align: center;
     transition: 0.5s;
     padding: 2px;
@@ -46,7 +46,7 @@ td {
     cursor: pointer;
 }
 
-/* ////////////  VICTORY POP UP ///////////////// */
+/* //////////////////  VICTORY POP UP //////////////////// */
 
 .hide {
     display: none;

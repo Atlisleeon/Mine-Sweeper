@@ -29,6 +29,9 @@ var gLevel = {
 
 }
 
+// var mines = gLevel['beginner'].MINES;
+// console.log(mines); // Output: 2
+
 // function selectLevel(level) {
 //     switch (level) {
 //         case 'beginner':
@@ -68,22 +71,22 @@ function onInit() {
     gGame.isOn = true
     // setMines(gBoard)
 
+
     // console.table(gBoard)
     // console.log(gBoard)
 }
 
 function renderBoard(board) {
-    console.log(board)
     var strHTML = ''
     for (var i = 0; i < board.length; i++) {
         strHTML += `<tr>\n`
         for (var j = 0; j < board[i].length; j++) {
             if (board[i][j].isMine) strHTML += '<td>' + MINE + '</td>'
             else strHTML += '<td>' + '</td>'
-            // strHTML += `<td>${board[i][j]}</td>\n`
         }
         strHTML += `</tr>\n`
     }
+    // console.log(board)
     // console.log(strHTML)
     const elTable = document.querySelector('.board')
     elTable.innerHTML = strHTML
@@ -92,83 +95,119 @@ function renderBoard(board) {
 }
 
 
-// function buildBoard() {
-//     const level = 4
-//     const board = []
-
-//     // replace(add) the size with the levels
-//     for (var i = 0; i < level; i++) {
-//         board.push([])
-
-//         for (var j = 0; j < level; j++) {
-//             board[i][j] = (Math.random() > 0.8) ? MINE : ''
-//             // board[1][2] = 'MINE'
-//             // console.log(board)
-//         }
-//     }
-//     return board;
-// }
 
 function buildBoard() {
-    // const level = 4
+    const level = 4
     const board = []
 
-    for (var i = 0; i < 4; i++) {
+    for (var i = 0; i < level; i++) {
         board.push([])
 
-        for (var j = 0; j < 4; j++) {
+        for (var j = 0; j < level; j++) {
             board[i][j] = {
-                mineAroundCount: 4,
+                mineAroundCount: 0,
                 isShown: false,
-                isMine: (Math.random() > 0.8) ? MINE : '',
+                isMine: false,
                 isMarked: false,
 
-                // board[1][2] = 'MINE'
                 // console.log(board)
             }
         }
     }
+    board[0][1].isMine = true
+    board[2][3].isMine = true
+    // board[1][1].isMine = true
+    // board[1][0].isMine = true
+    // for (var i = 0; i < level; i++) {
+    //     for (var j = 0; j < level; j++) {
+    //         board[i][j].mineAroundCount = setMinesNegsCount(board, i, j)
+    //     }
+    // }
+
     console.log(board)
     return board;
 }
 
-// function setMines(board) {
-//     const MINE = {
-//         location: {
-//             i: 1,
-//             j: 2
-//         },
-//         // currCellContent: '',
-//     }
-//     MINE.push(MINE)
-//     board[MINE.location.i][MINE.location.j] = MINE
-// }
+function setMinesNegsCount(board, rowIdx, colIdx) {
+    var count = 0;
+    for (var i = rowIdx - 1; i <= rowIdx + 1; i++) {
+        if (i < 0 || i >= board.length) continue;
+
+        for (var j = colIdx - 1; j <= colIdx + 1; j++) {
+            if (i === rowIdx && j === colIdx) continue;
+            if (j < 0 || j >= board[0].length) continue;
+
+            var currCell = board[i][j];
+            if (currCell.isMine) count++;
+        }
+    }
+    return count;
+}
+
+function updateMineAroundCount(board) {
+    for (var i = 0; i < board.length; i++) {
+        for (var j = 0; j < board[0].length; j++) {
+            board[i][j].mineAroundCount = setMinesNegsCount(board, i, j);
+        }
+    }
+    console.log(board[1][2])
+}
+
+const board = buildBoard();
+updateMineAroundCount(board);
+
+console.log(board[1][2].mineAroundCount);
+// console.log(currCell.mineAroundCount);
 
 
-// function buildBoard() {
 
-//     var setMines = MINE
 
-//     var board = []
-//     // replace(add) the size with the levels
-//     for (var i = 0; i < 4; i++) {
-//         board.push([])
 
-//         for (var j = 0; j < 4; j++) {
-//             board[i][j] = setMines
-//             // console.log(board)
+// function setMinesNegsCount(board, rowIdx, colIdx) {
+//     var count = 0;
+//     for (var i = rowIdx - 1; i <= rowIdx + 1; i++) {
+//         if (i < 0 || i >= board.length) continue;
+
+//         for (var j = colIdx - 1; j <= colIdx + 1; j++) {
+//             if (i === rowIdx && j === colIdx) continue;
+//             if (j < 0 || j >= board[0].length) continue;
+
+//             var currCell = board[i][j];
+//             if (currCell.isMine) count++;
 //         }
 //     }
-//     return board;
+//     return count;
+// }
+
+// function renderBoard(board) {
+//     console.log(board)
+//     var strHTML = ''
+//     for (var i = 0; i < board.length; i++) {
+//         strHTML += `<tr>\n`
+//         for (var j = 0; j < board[i].length; j++) {
+//             if (board[i][j].isMine) {
+//                 strHTML += '<td>' + MINE + '</td>'
+//             } else {
+//                 var mineCount = board[i][j].mineAroundCount
+//                 if (mineCount > 0) {
+//                     strHTML += `<td>${mineCount}</td>`
+//                 } else {
+//                     strHTML += '<td>' + '</td>'
+//                 }
+//             }
+//         }
+//         strHTML += `</tr>\n`
+//     }
+//     const elTable = document.querySelector('.board');
+//     elTable.innerHTML = strHTML;
 // }
 
 
+function onCellClicked() {
+}
 
 
-
-
-
-//////////the ninjaaaa //////////////////////////
+////////////////////the victory modal //////////////////////////
 
 function onOpenModal() {
     // elModal.style.display = 'block'
@@ -198,11 +237,11 @@ function onHandleKey(ev) {
 
 
 
-//////////////////////////////////////
+///////////////////////////////////////////////////////
 
 
-var mines = gLevel['beginner'].MINES;
-console.log(mines); // Output: 2
+// var mines = gLevel['beginner'].MINES;
+// console.log(mines); // Output: 2
 
 // while (placedMines = mines) {
 //     var row = getRandomInt(0, rows - 1);
@@ -221,11 +260,12 @@ console.log(mines); // Output: 2
 
 
 
-var res = getRandomIntInclusive(0, gBoard.length)
-console.log(res)
+// var res = getRandomIntInclusive(0, gBoard.length)
+// console.log(res)
 
-function getRandomIntInclusive(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+// function getRandomIntInclusive(min, max) {
+//     return Math.floor(Math.random() * (max - min + 1)) + min;
+// }
 
 //getEmptyCell --- pacman... cr...
+
